@@ -53,7 +53,6 @@
     form.addEventListener("focusout", onBlur);
     form.addEventListener("click", onClick);
     form.addEventListener("submit", onSubmit);
-    document.getElementById("copy-ref").addEventListener("click", copyRef);
     window.addEventListener("beforeunload", function (e) {
       if (state.submitting) { e.preventDefault(); e.returnValue = ""; }
     });
@@ -574,24 +573,53 @@
     clearDraft();
     state.submissionId = null;
     state.lastAttemptId = null;
-    document.getElementById("success-name").textContent = res.name || payload.fullName;
-    document.getElementById("success-ref").textContent = res.ref;
+    var name = res.name || payload.fullName;
+    // Nomor referensi tetap dibuat & diverifikasi server, tetapi tidak ditampilkan ke peserta.
+    document.getElementById("success-name").textContent = name;
     document.getElementById("success-event").textContent = CONFIG.eventName || "MAPABA PMII Trisakti 2026";
+    document.getElementById("success-date").textContent = CONFIG.dateText || "";
+    document.getElementById("success-location").textContent = CONFIG.locationText || "";
     if (CONFIG.eventName) {
       document.getElementById("success-desc").textContent =
         "Terima kasih telah mendaftar " + CONFIG.eventName + ". Data pendaftaranmu sudah diterima oleh panitia. " +
         "Pantau WhatsApp atau email yang kamu cantumkan untuk informasi selanjutnya.";
     }
     if (!CONFIG.requiresVerification) {
-      document.getElementById("success-note").textContent = "Simpan atau tangkap layar nomor referensi ini.";
+      document.getElementById("success-status-row").hidden = true;
+      document.getElementById("success-note").hidden = true;
     }
+    renderSuccessContacts(name);
     formArea.hidden = true;
     document.getElementById("config-notice").hidden = true;
-    var success = document.getElementById("success");
-    success.hidden = false;
+    document.getElementById("success").hidden = false;
     form.reset();
     document.getElementById("form-card").scrollIntoView({ block: "start", behavior: smooth() });
     document.getElementById("success-title").focus({ preventScroll: true });
+  }
+
+  function renderSuccessContacts(name) {
+    var contacts = validContacts();
+    var list = document.getElementById("contacts-list");
+    list.textContent = "";
+    contacts.forEach(function (c) {
+      var li = el("li", "contact");
+      var who = el("div", "contact__who");
+      who.appendChild(el("span", "contact__name", c.label));
+      who.appendChild(el("span", "contact__phone", c.phone));
+      li.appendChild(who);
+      if (c.wa) {
+        var a = el("a", "contact__chat", "Chat");
+        var msg = "Halo " + c.label + ", saya " + name + ". Saya baru saja mendaftar " +
+          (CONFIG.eventName || "MAPABA PMII Trisakti 2026") + ".";
+        a.href = "https://wa.me/" + c.wa + "?text=" + encodeURIComponent(msg);
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        a.setAttribute("aria-label", "Chat WhatsApp dengan " + c.label);
+        li.appendChild(a);
+      }
+      list.appendChild(li);
+    });
+    document.getElementById("success-contacts").hidden = contacts.length === 0;
   }
 
   function clearStatus() { statusBox.textContent = ""; }
@@ -641,24 +669,14 @@
     list.forEach(function (c) {
       if (!c || !c.label) return;
       var wa = c.whatsapp ? V.normalizePhone(c.whatsapp) : "";
-      if (wa) out.push({ text: c.label + " — " + V.formatPhone(wa), href: "https://wa.me/" + wa });
-      else if (c.email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.email)) {
-        out.push({ text: c.label + " — " + c.email, href: "mailto:" + c.email });
+      if (wa) {
+        out.push({ label: c.label, phone: V.formatPhone(wa), wa: wa,
+          text: c.label + " — " + V.formatPhone(wa), href: "https://wa.me/" + wa });
+      } else if (c.email && /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(c.email)) {
+        out.push({ label: c.label, phone: c.email, text: c.label + " — " + c.email, href: "mailto:" + c.email });
       }
     });
     return out;
-  }
-
-  function copyRef() {
-    var ref = document.getElementById("success-ref").textContent;
-    var btn = document.getElementById("copy-ref");
-    var done = function () {
-      btn.textContent = "Tersalin";
-      setTimeout(function () { btn.textContent = "Salin"; }, 2000);
-    };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(ref).then(done, function () {});
-    }
   }
 
   // ---------------------------------------------------------------

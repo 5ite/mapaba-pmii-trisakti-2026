@@ -25,9 +25,12 @@ window.MAPABA_CONFIG = {
   backendUrl: "https://script.google.com/macros/s/AKfycbxdnI9qWRhNpcS_prcIOLrRl1hKpF5m6KJrDeKRi8Bz_fqCJFx9T4NdWXc6bnlJtUd5/exec",
 
   // --- Kontak panitia ---
-  // Biarkan kosong sampai panitia memberikan narahubung yang valid.
-  // Contoh: [{ label: "Panitia (WhatsApp)", whatsapp: "6281234567890" }]
-  contacts: [],
+  // Tampil di halaman sukses (tombol chat WhatsApp) dan saat pengiriman gagal.
+  // Kosongkan jika belum ada narahubung yang valid.
+  contacts: [
+    { label: "Sahabat Izzan", whatsapp: "+62 895-2978-8070" },
+    { label: "Sahabat Alghifari", whatsapp: "+62 896-1361-7474" },
+  ],
 
   // --- Aturan form ---
   // HARUS sama dengan Script Property REQUIRE_EMERGENCY_CONTACT di Apps Script.

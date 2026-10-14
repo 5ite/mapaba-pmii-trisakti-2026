@@ -203,17 +203,35 @@ async function main() {
       assert.equal(await js("document.querySelector('#submit-btn').disabled"), true);
       assert.match(await js("document.querySelector('#submit-btn').textContent"), /Mengirim pendaftaran/);
       await waitFor(() => js("!document.querySelector('#success').hidden"), 8000, "panel sukses").catch(async (e) => { throw new Error(e.message + " | status: " + await js("document.querySelector('#submit-status').textContent")); });
-      const ref = await js("document.querySelector('#success-ref').textContent");
-      assert.match(ref, /^MPB26-0001-[A-Z2-9]{3}$/);
+      assert.ok(!/MPB26-/.test(await js("document.querySelector('#success').innerText")), "nomor referensi tidak ditampilkan");
       const data = await rows();
       assert.equal(data.length, 2);
-      assert.equal(data[1][1], ref, "nomor referensi di layar sama dengan di sheet");
+      assert.match(data[1][1], /^MPB26-0001-[A-Z2-9]{3}$/, "nomor referensi tetap dibuat server");
+      assert.equal(await js("document.querySelector('#success-date').textContent"), "6–9 November 2026");
+      assert.equal(await js("document.querySelector('#success-location').textContent"), "Bogor");
+      const links = await js("[...document.querySelectorAll('#contacts-list a')].map(a => a.href)");
+      assert.equal(links.length, 2, "dua kontak panitia");
+      assert.match(links[0], /^https:\/\/wa\.me\/6289529788070\?text=/);
+      assert.match(decodeURIComponent(links[0]), /Halo Sahabat Izzan, saya Ahmad Fauzi/);
+      assert.match(links[1], /^https:\/\/wa\.me\/6289613617474\?text=/);
       assert.equal(data[1][5], "6281234567890");
       assert.equal(data[1][20], "Tidak ditanyakan");
       assert.equal(await js("document.querySelector('#success-name').textContent"), "Ahmad Fauzi");
       assert.equal(await js("sessionStorage.length"), 0, "draft dihapus setelah sukses");
       assert.equal(await js("document.activeElement.id"), "success-title");
       await shot("05-sukses-360");
+      // Kartu tiket & kontak tidak boleh keluar dari kartu putih, termasuk di 320px.
+      for (const w of [320, 360, 414]) {
+        await viewport(w, 780, true);
+        await wait(150);
+        const overflow = await js(`(() => { const card = document.getElementById('form-card').getBoundingClientRect();
+          return [...document.querySelectorAll('#success .pass, #success .contact, #success .contact__chat')]
+            .filter(e => e.getBoundingClientRect().right > card.right - 1 || e.getBoundingClientRect().left < card.left + 1).length; })()`);
+        assert.equal(overflow, 0, "elemen sukses keluar dari kartu pada " + w + "px");
+        assert.equal(await js("document.documentElement.scrollWidth - document.documentElement.clientWidth"), 0);
+        if (w === 320) await shot("05b-sukses-320");
+      }
+      await viewport(360, 780, true);
     });
 
     await scenario("nomor WhatsApp yang sama ditolak sebagai duplikat, data tetap ada", async () => {
@@ -244,7 +262,7 @@ async function main() {
       await waitFor(() => js("!document.querySelector('#success').hidden"), 8000, "panel sukses setelah coba lagi");
       const data = await rows();
       assert.equal(data.length, 3, "tidak ada baris ganda");
-      assert.equal(await js("document.querySelector('#success-ref').textContent"), data[2][1]);
+      assert.equal(await js("document.querySelector('#success-name').textContent"), "Ahmad Fauzi");
     });
 
     await scenario("tampilan tablet & desktop tanpa scroll horizontal", async () => {

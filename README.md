@@ -5,7 +5,7 @@ Form pendaftaran Masa Penerimaan Anggota Baru (MAPABA) PMII Komisariat Universit
 - **Frontend:** HTML, CSS, dan JavaScript murni (tanpa framework, tanpa proses build), di-hosting di **GitHub Pages**.
 - **Backend:** **Google Apps Script** (web app) yang memvalidasi data lalu menyimpannya ke **Google Sheets**.
 
-Peserta mengisi form dalam 3 langkah (Data diri, Tentang kamu, lalu Periksa & kirim). Halaman baru menyatakan pendaftaran **berhasil** setelah Apps Script mengonfirmasi bahwa baris data sudah tertulis di spreadsheet dan mengirim balik nomor referensi.
+Peserta mengisi form dalam 3 langkah (Data diri, Tentang kamu, lalu Periksa & kirim). Halaman baru menyatakan pendaftaran **berhasil** setelah Apps Script mengonfirmasi bahwa baris data sudah tertulis di spreadsheet dan mengirim balik nomor referensi. Nomor referensi hanya dicatat di sheet untuk panitia; peserta melihat kartu tanda pendaftaran berisi nama, kegiatan, tanggal, lokasi, status verifikasi, dan kontak panitia.
 
 ---
 
@@ -57,7 +57,7 @@ Folder `gas/` dan `tests/` ikut ada di repository, tetapi tidak berisi rahasia a
 | Kunci | Isi | Catatan |
 |---|---|---|
 | `backendUrl` | URL web app Apps Script (berakhiran `/exec`) | **Wajib.** Selama kosong, halaman menampilkan peringatan dan tidak bisa mengirim data. |
-| `contacts` | `[{ label: "Panitia (WhatsApp)", whatsapp: "08..." }]` | Hanya tampil saat pengiriman gagal. Kosongkan sampai ada narahubung resmi. |
+| `contacts` | `[{ label: "Sahabat Izzan", whatsapp: "+62 895-2978-8070" }, ...]` | Tampil di halaman sukses (tombol **Chat** ke WhatsApp dengan pesan pembuka berisi nama peserta) dan saat pengiriman gagal. Saat ini: Sahabat Izzan & Sahabat Alghifari. |
 | `requireEmergencyContact` | `true` / `false` | **Harus sama** dengan Script Property `REQUIRE_EMERGENCY_CONTACT`. |
 | `askDocumentationConsent` | `true` / `false` | Menampilkan persetujuan foto/video sebagai pilihan terpisah yang tidak wajib. |
 | `requiresVerification` | `true` / `false` | Menampilkan status "Menunggu verifikasi panitia" setelah berhasil. |
@@ -188,7 +188,7 @@ npm run serve          # atau: node tests/serve.js
 # buka http://localhost:8080
 ```
 
-Isi form, lalu kirim. Pastikan nomor referensi yang tampil **sama** dengan yang tercatat di sheet.
+Isi form, lalu kirim. Pastikan halaman sukses muncul dan baris baru tercatat di sheet dengan nama yang sama.
 
 **d. Dari GitHub Pages (wajib).** Perilaku CORS dan redirect di domain asli bisa berbeda dari localhost, jadi ulangi uji kirim dari URL GitHub Pages yang sebenarnya, **di HP dan di laptop**, setidaknya dengan Chrome Android dan Safari iOS.
 
@@ -318,7 +318,7 @@ SHOTS=hasil node tests/e2e.js   # sekaligus menyimpan screenshot 360px, tablet, 
 
 `tests/serve.js --mock` menjalankan `gas/Code.gs` yang asli di Node dan meniru perilaku Apps Script (POST → 302 ke origin lain yang mengizinkan CORS), sehingga alur `fetch` bisa diuji ujung ke ujung. **Mock ini tidak menggantikan uji pada Apps Script & GitHub Pages yang sebenarnya.**
 
-Yang dicakup tes E2E: navigasi maju/mundur tanpa kehilangan data, error muncul dan fokus berpindah ke field pertama yang salah, penyaringan karakter nomor, field kondisional, draft bertahan saat halaman dimuat ulang, tombol "Ubah" di ringkasan, ringkasan aman dari HTML, persetujuan wajib, status "Mengirim pendaftaran..." dengan tombol nonaktif, sukses dengan nomor referensi yang sama dengan isi sheet, penolakan duplikat tanpa mengosongkan form, gangguan setelah data tersimpan lalu "Coba kirim lagi" tanpa baris ganda, tidak ada scroll horizontal di 360px/768px/1366px, serta perilaku saat `backendUrl` kosong.
+Yang dicakup tes E2E: navigasi maju/mundur tanpa kehilangan data, error muncul dan fokus berpindah ke field pertama yang salah, penyaringan karakter nomor, field kondisional, draft bertahan saat halaman dimuat ulang, tombol "Ubah" di ringkasan, ringkasan aman dari HTML, persetujuan wajib, status "Mengirim pendaftaran..." dengan tombol nonaktif, sukses hanya setelah server menyimpan (nomor referensi tercatat di sheet tetapi tidak ditampilkan), kartu sukses & kontak panitia tidak keluar dari layar di 320/360/414px, penolakan duplikat tanpa mengosongkan form, gangguan setelah data tersimpan lalu "Coba kirim lagi" tanpa baris ganda, tidak ada scroll horizontal di 360px/768px/1366px, serta perilaku saat `backendUrl` kosong.
 
 ### Daftar uji manual (lakukan setelah deploy sungguhan)
 
@@ -331,8 +331,9 @@ Yang dicakup tes E2E: navigasi maju/mundur tanpa kehilangan data, error muncul d
 - [ ] Kembali dari langkah 2 ke langkah 1 → isian tetap ada.
 - [ ] Tombol "Ubah" di ringkasan membuka langkah yang benar, lalu kembali ke pemeriksaan.
 - [ ] Kirim → tombol berubah menjadi "Mengirim pendaftaran..." dan tidak bisa ditekan dua kali.
-- [ ] Halaman sukses menampilkan nama, nomor referensi, kegiatan, dan status menunggu verifikasi.
-- [ ] Baris baru muncul di sheet dengan nomor referensi yang sama; nomor WA tidak berubah menjadi angka ilmiah.
+- [ ] Halaman sukses menampilkan kartu berisi nama, kegiatan, tanggal, lokasi, dan cap "Menunggu verifikasi", serta dua kontak panitia.
+- [ ] Tombol "Chat" membuka WhatsApp ke nomor panitia yang benar dengan pesan pembuka berisi nama peserta.
+- [ ] Baris baru muncul di sheet dengan nomor referensi; nomor WA tidak berubah menjadi angka ilmiah.
 - [ ] Mendaftar ulang dengan nomor WA yang sama → pesan "sudah terdaftar", tidak ada baris baru.
 - [ ] Mode pesawat saat menekan Kirim → pesan "belum dapat dikonfirmasi", data tetap ada. Nyalakan internet lagi, tekan "Coba kirim lagi" → berhasil, hanya satu baris.
 - [ ] `REGISTRATION_OPEN=false` → pesan "Pendaftaran sedang ditutup". Kembalikan ke `true`.
@@ -372,7 +373,7 @@ Bagian berikut sengaja **tidak diisi atau dikarang**, dan dibuat mudah diubah:
 
 1. **Nomor angkatan MAPABA** (XXV atau XXVI): tidak ditampilkan di mana pun. Tambahkan ke `eventName` di `config.js` jika sudah final.
 2. **Logo & gambar header**: sudah terpasang dari file yang disediakan panitia (lihat [Gambar & logo](#gambar--logo)).
-3. **Kontak panitia**: isi `contacts` di `config.js` jika ada narahubung resmi.
+3. **Kontak panitia**: sudah diisi (Sahabat Izzan, Sahabat Alghifari). Ubah di `contacts` pada `config.js` jika narahubung berganti.
 4. **Kontak darurat wajib?** Saat ini **wajib** (`true`) karena kegiatan 4 hari di Bogor kemungkinan menginap. Konfirmasikan ke panitia; jika tidak disetujui, ubah ke `false` di `config.js` **dan** Script Property `REQUIRE_EMERGENCY_CONTACT`.
 5. **Email & NIM**: saat ini opsional. Jika panitia mewajibkan, ubah aturannya di `js/validation.js` dan `gas/Code.gs` (tes paritas akan gagal jika hanya satu yang diubah).
 6. **Persetujuan dokumentasi foto/video**: saat ini **dimatikan** (`askDocumentationConsent: false`), jadi kolom sheet *Persetujuan dokumentasi* berisi `Tidak ditanyakan`. Jika panitia membutuhkannya, ubah ke `true`. Pilihan ini akan muncul sebagai centang terpisah yang tidak wajib.

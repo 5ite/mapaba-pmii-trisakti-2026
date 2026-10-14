@@ -334,23 +334,38 @@
 
       <!-- ============ BERHASIL ============ -->
       <section class="success" id="success" aria-labelledby="success-title" hidden>
-        <div class="success__mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
         <h2 class="step__title" id="success-title" tabindex="-1">Pendaftaran berhasil dikirim!</h2>
         <p class="step__desc" id="success-desc">Terima kasih telah mendaftar MAPABA PMII Trisakti 2026. Data pendaftaranmu sudah diterima oleh panitia. Pantau WhatsApp atau email yang kamu cantumkan untuk informasi selanjutnya.</p>
 
-        <dl class="receipt">
-          <div><dt>Nama</dt><dd id="success-name"></dd></div>
-          <div class="receipt__ref">
-            <dt>Nomor referensi</dt>
-            <dd><span id="success-ref"></span>
-              <button type="button" class="btn-link" id="copy-ref">Salin</button></dd>
+        <!-- Kartu tanda pendaftaran (gaya tiket acara) -->
+        <article class="pass" aria-label="Tanda pendaftaran">
+          <header class="pass__head">
+            <img class="pass__wordmark" src="assets/images/mapaba-wordmark-600.webp" width="600" height="217" alt="MAPABA">
+            <span class="pass__edition">PMII Trisakti<br>2026</span>
+          </header>
+
+          <div class="pass__holder">
+            <span class="pass__label">Nama peserta</span>
+            <span class="pass__name" id="success-name"></span>
           </div>
-          <div><dt>Kegiatan</dt><dd id="success-event"></dd></div>
-          <div id="success-status-row"><dt>Status</dt><dd><span class="badge">Menunggu verifikasi panitia</span></dd></div>
-        </dl>
-        <p class="success__note" id="success-note">Simpan atau tangkap layar nomor referensi ini. Status pendaftaranmu akan dikonfirmasi oleh panitia setelah verifikasi.</p>
+
+          <div class="pass__perf" aria-hidden="true"></div>
+
+          <dl class="pass__details">
+            <div class="pass__detail pass__detail--wide"><dt class="pass__label">Kegiatan</dt><dd id="success-event"></dd></div>
+            <div class="pass__detail"><dt class="pass__label">Tanggal</dt><dd id="success-date"></dd></div>
+            <div class="pass__detail"><dt class="pass__label">Lokasi</dt><dd id="success-location"></dd></div>
+          </dl>
+
+          <p class="pass__stamp" id="success-status-row"><span class="sr-only">Status: </span>Menunggu<br>verifikasi</p>
+        </article>
+
+        <p class="success__note" id="success-note">Panitia akan memverifikasi pendaftaranmu dan menghubungimu lewat WhatsApp.</p>
+
+        <section class="contacts" id="success-contacts" aria-labelledby="contacts-title" hidden>
+          <h3 class="contacts__title" id="contacts-title">Ada pertanyaan? Hubungi panitia</h3>
+          <ul class="contacts__list" id="contacts-list"></ul>
+        </section>
       </section>
     </div>
   </main>

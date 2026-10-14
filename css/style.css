@@ -511,21 +511,6 @@ input[type="checkbox"]:focus-visible { outline: 2px solid var(--cyan-700); outli
 .btn[aria-disabled="true"] { opacity: .65; cursor: progress; }
 .btn--small { min-height: 40px; padding: 6px 14px; font-size: 14px; }
 
-.btn-link {
-  margin-left: 8px;
-  padding: 4px 6px;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--cyan-700);
-  background: none;
-  border: 0;
-  border-radius: 6px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  cursor: pointer;
-}
-.btn-link:focus-visible { outline: none; box-shadow: var(--focus); }
 
 .spinner {
   width: 18px; height: 18px;
@@ -593,46 +578,182 @@ input[type="checkbox"]:focus-visible { outline: 2px solid var(--cyan-700); outli
 
 /* ---------- Berhasil ---------- */
 
+/* Hallmark · component: success pass (kartu tanda pendaftaran) · genre: editorial · theme: proyek (navy/cream/gold)
+ * states: link default · hover · focus-visible · active
+ */
+
 .success { text-align: left; }
-.success__mark {
-  width: 52px; height: 52px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 14px;
+.success__note { margin: 0 0 4px; font-size: 14px; color: var(--muted); }
+
+.pass {
+  --pass-cream: var(--cream-50);
+  --pass-dim: rgba(251, 248, 241, .62);
+  --pass-rule: rgba(251, 248, 241, .28);
+  --notch: 18px;
+  position: relative;
+  margin: 22px 0 18px;
+  padding: 18px 20px 22px;
+  color: var(--pass-cream);
+  background-color: var(--navy-900);
+  /* Grid poster yang sama dengan header */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .05) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-radius: 14px;
+  border-top: 4px solid var(--gold-400);
+  overflow: hidden;
+}
+
+.pass__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--pass-rule);
+}
+.pass__wordmark { display: block; width: clamp(96px, 30vw, 132px); height: auto; }
+.pass__edition {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--gold-400);
+}
+
+.pass__label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--cyan-400);
+}
+
+.pass__holder { padding: 18px 0 20px; }
+.pass__name {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(22px, 6.4vw, 30px);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* Garis sobekan tiket: putus-putus dengan lubang setengah lingkaran di kedua sisi */
+.pass__perf {
+  position: relative;
+  height: 0;
+  margin: 0 calc(-1 * 20px);
+  border-top: 2px dashed var(--pass-rule);
+}
+.pass__perf::before,
+.pass__perf::after {
+  content: "";
+  position: absolute;
+  top: calc(-1 * var(--notch) / 2 - 1px);
+  width: var(--notch);
+  height: var(--notch);
   border-radius: 50%;
-  background: var(--success-bg);
-  color: var(--success);
-  border: 2px solid #abefc6;
+  background: var(--white); /* warna kartu form di belakang tiket */
 }
-.receipt {
-  margin: 20px 0 16px;
-  padding: 4px 16px;
-  border: 1px solid var(--line);
-  border-left: 4px solid var(--gold-400);
-  border-radius: var(--radius);
-  background: var(--cream-50);
+.pass__perf::before { left: calc(-1 * var(--notch) / 2); }
+.pass__perf::after { right: calc(-1 * var(--notch) / 2); }
+
+.pass__details {
+  /* Tanggal & lokasi berdampingan bila muat; lokasi turun ke baris baru di layar sempit */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 32px;
+  margin: 0;
+  padding-top: 18px;
 }
-.receipt > div { padding: 12px 0; border-bottom: 1px solid #e8e4d8; }
-.receipt > div:last-child { border-bottom: 0; }
-.receipt dt { font-size: 13px; color: var(--muted); font-weight: 600; }
-.receipt dd { margin: 2px 0 0; font-weight: 700; overflow-wrap: anywhere; }
-.receipt__ref dd > span {
-  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
-  font-size: 20px;
-  letter-spacing: .04em;
+.pass__detail { flex: 0 1 auto; min-width: 0; }
+.pass__detail--wide { flex-basis: 100%; }
+.pass__details dd {
+  margin: 4px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+#success-date { white-space: nowrap; }
+
+/* Cap stempel status — tinta emas, sedikit miring */
+.pass__stamp {
+  display: inline-block;
+  margin: 20px 0 0;
+  padding: 7px 12px 6px;
+  border: 2px solid var(--gold-400);
+  outline: 1px solid var(--gold-400);
+  outline-offset: 2px;
+  border-radius: 4px;
+  color: var(--gold-400);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  transform-origin: left center;
+}
+
+/* ---------- Kontak panitia ---------- */
+
+.contacts {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.contacts__title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 800;
   color: var(--navy-900);
 }
-.badge {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 99px;
-  background: var(--warn-bg);
-  border: 1px solid #f1d18a;
-  color: var(--warn-ink);
+.contacts__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 12px 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream-50);
+}
+.contact__who { min-width: 0; }
+.contact__name { display: block; font-weight: 700; color: var(--ink); }
+.contact__phone {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.contact__chat {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--navy-900);
+  color: var(--white);
   font-size: 14px;
   font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color .15s;
 }
-.success__note { margin: 0; font-size: 14px; color: var(--muted); }
+.contact__chat:hover { background: var(--navy-700); }
+.contact__chat:active { background: var(--navy-950); }
+.contact__chat:focus-visible { outline: none; box-shadow: var(--focus); }
 
 /* ---------- Honeypot ---------- */
 
