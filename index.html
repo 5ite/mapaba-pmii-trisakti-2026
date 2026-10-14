@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pendaftaran MAPABA PMII Trisakti 2026</title>
+  <meta name="description" content="Formulir pendaftaran Masa Penerimaan Anggota Baru (MAPABA) PMII Komisariat Universitas Trisakti 2026.">
+  <meta name="theme-color" content="#0A1A3F">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <!--
+    CSP: hanya mengizinkan Google Fonts dan Google Apps Script.
+    Jika backend dipindah ke layanan lain, perbarui connect-src, frame-src, dan form-action.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://script.google.com https://script.googleusercontent.com; frame-src https://script.google.com https://*.googleusercontent.com; form-action https://script.google.com https://*.googleusercontent.com; base-uri 'self'; object-src 'none'">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logo/favicon.png">
+  <script src="js/config.js" defer></script>
+  <script src="js/validation.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#form-card">Langsung ke formulir</a>
+
+  <header class="hero">
+    <div class="hero__inner">
+      <div class="hero__text">
+        <div class="brand">
+          <img class="brand__logo" src="assets/logo/pmii.webp" width="54" height="60" alt="Logo PMII">
+          <img class="brand__logo" src="assets/logo/pmii-trisakti.webp" width="50" height="60" alt="Logo PMII Komisariat Trisakti">
+          <span class="brand__org" data-config="organizer">PMII Komisariat Universitas Trisakti</span>
+        </div>
+
+        <h1 class="hero__title">
+          <span class="hero__kicker">Pendaftaran</span>
+          <img class="hero__wordmark" src="assets/images/mapaba-wordmark-600.webp"
+               srcset="assets/images/mapaba-wordmark-600.webp 600w, assets/images/mapaba-wordmark-1000.webp 1000w"
+               sizes="(min-width: 900px) 460px, (min-width: 560px) 420px, calc(100vw - 32px)"
+               width="600" height="217" alt="MAPABA" fetchpriority="high">
+          <span class="hero__sub">PMII Trisakti 2026</span>
+        </h1>
+
+        <dl class="hero__meta">
+          <div>
+            <dt>Tanggal</dt>
+            <dd data-config="dateText">6–9 November 2026</dd>
+          </div>
+          <div>
+            <dt>Lokasi</dt>
+            <dd data-config="locationText">Bogor</dd>
+          </div>
+        </dl>
+
+        <figure class="hero__theme">
+          <figcaption>Tema</figcaption>
+          <blockquote data-config="theme">Rekonstruksi Gerakan: Meneguhkan Trilogi PMII &amp; Trisakti sebagai Manifestasi Identitas Kader Progresif-Transformatif</blockquote>
+        </figure>
+      </div>
+
+      <div class="hero__art">
+        <!-- Ilustrasi dekoratif: alt kosong agar tidak dibacakan pembaca layar -->
+        <img class="hero__crew" src="assets/images/mapaba-crew-640.webp"
+             srcset="assets/images/mapaba-crew-640.webp 640w, assets/images/mapaba-crew-1100.webp 1100w"
+             sizes="(min-width: 900px) 520px, (min-width: 560px) 480px, calc(100vw - 32px)"
+             width="640" height="448" alt="">
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap main">
+    <div class="card" id="form-card">
+      <noscript>
+        <p class="alert alert--error">Formulir ini membutuhkan JavaScript. Aktifkan JavaScript di browsermu, lalu muat ulang halaman.</p>
+      </noscript>
+
+      <p class="alert alert--warn" id="config-notice" hidden>
+        Formulir belum terhubung ke server pendaftaran. Kamu bisa mencoba mengisi, tetapi data belum bisa dikirim.
+      </p>
+
+      <div id="form-area">
+        <nav class="progress" aria-label="Tahapan pendaftaran">
+          <p class="progress__count" id="progress-count">Langkah 1 dari 3</p>
+          <ol class="progress__list">
+            <li class="progress__item" data-progress="1"><span class="progress__num">1</span><span class="progress__label">Data diri</span></li>
+            <li class="progress__item" data-progress="2"><span class="progress__num">2</span><span class="progress__label">Tentang kamu</span></li>
+            <li class="progress__item" data-progress="3"><span class="progress__num">3</span><span class="progress__label">Periksa &amp; kirim</span></li>
+          </ol>
+        </nav>
+
+        <form id="reg-form" novalidate autocomplete="on">
+          <!-- Honeypot anti-spam: disembunyikan dari pengguna dan pembaca layar -->
+          <div class="hp" aria-hidden="true">
+            <label for="website_url">Kosongkan kolom ini</label>
+            <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+          </div>
+
+          <!-- ============ LANGKAH 1 ============ -->
+          <section class="step" data-step="1" aria-labelledby="step1-title">
+            <header class="step__head">
+              <h2 class="step__title" id="step1-title" tabindex="-1">Kenalan dulu, yuk!</h2>
+              <p class="step__desc">Isi data dasar berikut agar panitia dapat mengenali dan menghubungimu terkait kegiatan MAPABA.</p>
+              <p class="step__legend"><span class="req" aria-hidden="true">*</span> wajib diisi</p>
+            </header>
+
+            <div class="field">
+              <label for="fullName">Nama lengkap <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="fullName" name="fullName" type="text" autocomplete="name" maxlength="100" required
+                     placeholder="Nama lengkap sesuai identitas" aria-describedby="fullName-error">
+              <p class="field__error" id="fullName-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="nickname">Nama panggilan <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="nickname" name="nickname" type="text" autocomplete="nickname" maxlength="40" required
+                     placeholder="Biasanya dipanggil apa?" aria-describedby="nickname-error">
+              <p class="field__error" id="nickname-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="whatsapp">Nomor WhatsApp aktif <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <p class="field__hint" id="whatsapp-hint">Panitia akan menghubungimu lewat nomor ini.</p>
+              <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" required
+                     placeholder="Contoh: 081234567890" aria-describedby="whatsapp-hint whatsapp-error" data-phone>
+              <p class="field__error" id="whatsapp-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email aktif <span class="opt">(opsional)</span></label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="100"
+                     placeholder="Contoh: nama@gmail.com" aria-describedby="email-error">
+              <p class="field__error" id="email-error"></p>
+            </div>
+
+            <fieldset class="field">
+              <legend>Asal perguruan tinggi <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></legend>
+              <div class="options" role="radiogroup" aria-describedby="campusType-error">
+                <label class="option"><input type="radio" name="campusType" value="trisakti" required><span>Universitas Trisakti</span></label>
+                <label class="option"><input type="radio" name="campusType" value="other"><span>Perguruan tinggi lainnya</span></label>
+              </div>
+              <p class="field__error" id="campusType-error"></p>
+            </fieldset>
+
+            <div class="field field--sub" data-show-when="campusType=other" hidden>
+              <label for="campusOther">Nama perguruan tinggi <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="campusOther" name="campusOther" type="text" autocomplete="organization" maxlength="120"
+                     placeholder="Contoh: Universitas Indonesia" aria-describedby="campusOther-error">
+              <p class="field__error" id="campusOther-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="faculty">Fakultas <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="faculty" name="faculty" type="text" maxlength="100" required
+                     placeholder="Contoh: Fakultas Hukum" aria-describedby="faculty-error">
+              <p class="field__error" id="faculty-error"></p>
+            </div>
+
+            <div class="field">
+              <label for="studyProgram">Program studi <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="studyProgram" name="studyProgram" type="text" maxlength="100" required
+                     placeholder="Contoh: Ilmu Hukum" aria-describedby="studyProgram-error">
+              <p class="field__error" id="studyProgram-error"></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="semester">Semester saat ini <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+                <select id="semester" name="semester" required aria-describedby="semester-error">
+                  <option value="">Pilih semester</option>
+                  <!-- Opsi 1–14 diisi oleh app.js -->
+                  <option value="lainnya">Lainnya</option>
+                </select>
+                <p class="field__error" id="semester-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="nim">NIM <span class="opt">(opsional)</span></label>
+                <input id="nim" name="nim" type="text" maxlength="30" autocapitalize="characters" spellcheck="false"
+                       placeholder="Nomor Induk Mahasiswa" aria-describedby="nim-error">
+                <p class="field__error" id="nim-error"></p>
+              </div>
+            </div>
+
+            <div class="field field--sub" data-show-when="semester=lainnya" hidden>
+              <label for="semesterOther">Keterangan semester <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="semesterOther" name="semesterOther" type="text" maxlength="40"
+                     placeholder="Contoh: cuti akademik" aria-describedby="semesterOther-error">
+              <p class="field__error" id="semesterOther-error"></p>
+            </div>
+
+            <div class="step__nav">
+              <button type="button" class="btn btn--primary" data-action="next">Lanjut</button>
+            </div>
+          </section>
+
+          <!-- ============ LANGKAH 2 ============ -->
+          <section class="step" data-step="2" aria-labelledby="step2-title" hidden>
+            <header class="step__head">
+              <h2 class="step__title" id="step2-title" tabindex="-1">Sedikit tentang kamu</h2>
+              <p class="step__desc">Informasi berikut membantu panitia mempersiapkan kegiatan dengan lebih baik.</p>
+              <p class="step__legend"><span class="req" aria-hidden="true">*</span> wajib diisi</p>
+            </header>
+
+            <div class="field">
+              <label for="motivation">Apa alasan kamu tertarik mengikuti MAPABA? <span class="opt">(opsional)</span></label>
+              <textarea id="motivation" name="motivation" rows="4" maxlength="1000"
+                        placeholder="Ceritakan singkat saja. Tidak perlu jawaban formal." aria-describedby="motivation-count motivation-error"></textarea>
+              <p class="field__count" id="motivation-count" data-count-for="motivation" aria-live="off"></p>
+              <p class="field__error" id="motivation-error"></p>
+            </div>
+
+            <fieldset class="field">
+              <legend>Dari mana kamu mengetahui informasi MAPABA? <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></legend>
+              <div class="options" role="radiogroup" aria-describedby="infoSource-error">
+                <label class="option"><input type="radio" name="infoSource" value="instagram" required><span>Instagram</span></label>
+                <label class="option"><input type="radio" name="infoSource" value="teman"><span>Teman</span></label>
+                <label class="option"><input type="radio" name="infoSource" value="kader"><span>Pengurus atau kader PMII</span></label>
+                <label class="option"><input type="radio" name="infoSource" value="kampus"><span>Informasi kampus</span></label>
+                <label class="option"><input type="radio" name="infoSource" value="lainnya"><span>Lainnya</span></label>
+              </div>
+              <p class="field__error" id="infoSource-error"></p>
+            </fieldset>
+
+            <div class="field field--sub" data-show-when="infoSource=lainnya" hidden>
+              <label for="infoSourceOther">Sebutkan sumbernya <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></label>
+              <input id="infoSourceOther" name="infoSourceOther" type="text" maxlength="100"
+                     placeholder="Contoh: poster di kantin" aria-describedby="infoSourceOther-error">
+              <p class="field__error" id="infoSourceOther-error"></p>
+            </div>
+
+            <fieldset class="field">
+              <legend>Apakah kamu pernah mengikuti kegiatan PMII sebelumnya? <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></legend>
+              <div class="options options--inline" role="radiogroup" aria-describedby="pmiiExperience-error">
+                <label class="option"><input type="radio" name="pmiiExperience" value="pernah" required><span>Pernah</span></label>
+                <label class="option"><input type="radio" name="pmiiExperience" value="belum"><span>Belum pernah</span></label>
+              </div>
+              <p class="field__error" id="pmiiExperience-error"></p>
+            </fieldset>
+
+            <fieldset class="group">
+              <legend class="group__title">Kontak darurat <span class="opt" data-ec-optional hidden>(opsional)</span></legend>
+              <p class="group__desc">Orang yang bisa panitia hubungi jika terjadi sesuatu selama kegiatan, misalnya orang tua atau kerabat.</p>
+
+              <div class="field">
+                <label for="emergencyName">Nama kontak darurat <span data-ec-req><span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></span></label>
+                <input id="emergencyName" name="emergencyName" type="text" maxlength="100" autocomplete="off"
+                       placeholder="Contoh: Siti Aminah" aria-describedby="emergencyName-error">
+                <p class="field__error" id="emergencyName-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="emergencyRelation">Hubungan denganmu <span data-ec-req><span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></span></label>
+                <select id="emergencyRelation" name="emergencyRelation" aria-describedby="emergencyRelation-error">
+                  <option value="">Pilih hubungan</option>
+                  <option value="orang_tua">Orang tua</option>
+                  <option value="keluarga">Keluarga</option>
+                  <option value="teman">Teman</option>
+                  <option value="lainnya">Lainnya</option>
+                </select>
+                <p class="field__error" id="emergencyRelation-error"></p>
+              </div>
+
+              <div class="field">
+                <label for="emergencyPhone">Nomor WhatsApp kontak darurat <span data-ec-req><span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib)</span></span></label>
+                <input id="emergencyPhone" name="emergencyPhone" type="tel" inputmode="tel" autocomplete="off" maxlength="20"
+                       placeholder="Contoh: 081298765432" aria-describedby="emergencyPhone-error" data-phone>
+                <p class="field__error" id="emergencyPhone-error"></p>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="needs">Apakah ada alergi makanan, pantangan makanan, atau kebutuhan aksesibilitas yang perlu diketahui panitia? <span class="opt">(opsional)</span></label>
+              <p class="field__hint" id="needs-hint">Cukup tulis yang perlu disiapkan panitia, misalnya &ldquo;alergi udang&rdquo; atau &ldquo;vegetarian&rdquo;. Kamu tidak perlu menceritakan riwayat kesehatan. Informasi ini hanya untuk persiapan kegiatan dan hanya dibuka oleh panitia yang berwenang.</p>
+              <textarea id="needs" name="needs" rows="3" maxlength="500"
+                        placeholder="Kosongkan jika tidak ada" aria-describedby="needs-hint needs-count needs-error"></textarea>
+              <p class="field__count" id="needs-count" data-count-for="needs" aria-live="off"></p>
+              <p class="field__error" id="needs-error"></p>
+            </div>
+
+            <div class="step__nav">
+              <button type="button" class="btn btn--ghost" data-action="back">Kembali</button>
+              <button type="button" class="btn btn--primary" data-action="next">Lanjut ke pemeriksaan</button>
+            </div>
+          </section>
+
+          <!-- ============ LANGKAH 3 ============ -->
+          <section class="step" data-step="3" aria-labelledby="step3-title" hidden>
+            <header class="step__head">
+              <h2 class="step__title" id="step3-title" tabindex="-1">Periksa data pendaftaranmu</h2>
+              <p class="step__desc">Pastikan semuanya sudah benar. Tekan &ldquo;Ubah&rdquo; jika ada yang perlu diperbaiki, isianmu tidak akan hilang.</p>
+            </header>
+
+            <div class="review" id="review"></div>
+
+            <fieldset class="group consents">
+              <legend class="group__title">Pernyataan <span class="req" aria-hidden="true">*</span><span class="sr-only">(wajib dicentang semua)</span></legend>
+
+              <div class="check">
+                <input type="checkbox" id="consentTruth" name="consentTruth" aria-describedby="consentTruth-error">
+                <label for="consentTruth">Saya menyatakan bahwa data yang saya isi benar.</label>
+                <p class="field__error" id="consentTruth-error"></p>
+              </div>
+              <div class="check">
+                <input type="checkbox" id="consentRules" name="consentRules" aria-describedby="consentRules-error">
+                <label for="consentRules">Saya bersedia mengikuti ketentuan panitia dan arahan selama kegiatan MAPABA.</label>
+                <p class="field__error" id="consentRules-error"></p>
+              </div>
+              <div class="check">
+                <input type="checkbox" id="consentData" name="consentData" aria-describedby="consentData-error">
+                <label for="consentData">Saya memahami bahwa data yang saya berikan digunakan untuk administrasi, komunikasi, dan pelaksanaan kegiatan MAPABA.</label>
+                <p class="field__error" id="consentData-error"></p>
+              </div>
+            </fieldset>
+
+            <fieldset class="group group--quiet" id="doc-consent-group">
+              <legend class="group__title">Dokumentasi kegiatan <span class="opt">(opsional)</span></legend>
+              <p class="group__desc">Pilihan ini terpisah dan tidak memengaruhi pendaftaranmu.</p>
+              <div class="check">
+                <input type="checkbox" id="consentDocumentation" name="consentDocumentation">
+                <label for="consentDocumentation">Saya bersedia foto atau video saya selama kegiatan digunakan untuk dokumentasi dan publikasi PMII Komisariat Universitas Trisakti.</label>
+              </div>
+            </fieldset>
+
+            <div class="submit-status" id="submit-status" role="status" aria-live="polite"></div>
+
+            <div class="step__nav">
+              <button type="button" class="btn btn--ghost" data-action="back">Kembali</button>
+              <button type="submit" class="btn btn--primary" id="submit-btn">Kirim Pendaftaran</button>
+            </div>
+          </section>
+        </form>
+      </div>
+
+      <!-- ============ BERHASIL ============ -->
+      <section class="success" id="success" aria-labelledby="success-title" hidden>
+        <div class="success__mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="28" height="28"><path d="M5 12.5l4.2 4.2L19 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2 class="step__title" id="success-title" tabindex="-1">Pendaftaran berhasil dikirim!</h2>
+        <p class="step__desc" id="success-desc">Terima kasih telah mendaftar MAPABA PMII Trisakti 2026. Data pendaftaranmu sudah diterima oleh panitia. Pantau WhatsApp atau email yang kamu cantumkan untuk informasi selanjutnya.</p>
+
+        <dl class="receipt">
+          <div><dt>Nama</dt><dd id="success-name"></dd></div>
+          <div class="receipt__ref">
+            <dt>Nomor referensi</dt>
+            <dd><span id="success-ref"></span>
+              <button type="button" class="btn-link" id="copy-ref">Salin</button></dd>
+          </div>
+          <div><dt>Kegiatan</dt><dd id="success-event"></dd></div>
+          <div id="success-status-row"><dt>Status</dt><dd><span class="badge">Menunggu verifikasi panitia</span></dd></div>
+        </dl>
+        <p class="success__note" id="success-note">Simpan atau tangkap layar nomor referensi ini. Status pendaftaranmu akan dikonfirmasi oleh panitia setelah verifikasi.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>Diselenggarakan oleh <strong data-config="organizer">PMII Komisariat Universitas Trisakti</strong></p>
+      <p class="footer__small">Data pendaftaran hanya digunakan untuk keperluan kegiatan MAPABA dan hanya dapat diakses panitia yang berwenang.</p>
+    </div>
+  </footer>
+</body>
+</html>

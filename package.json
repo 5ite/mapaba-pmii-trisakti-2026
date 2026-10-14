@@ -1,0 +1,13 @@
+{
+  "name": "mapaba-pmii-trisakti-2026",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Form pendaftaran MAPABA PMII Komisariat Universitas Trisakti 2026 (GitHub Pages + Google Apps Script).",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "serve": "node tests/serve.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

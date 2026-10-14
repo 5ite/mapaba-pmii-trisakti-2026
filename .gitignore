@@ -1,0 +1,26 @@
+# Dependensi & artefak lokal
+node_modules/
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Hasil uji (screenshot dsb.)
+hasil/
+shots/
+tests/output/
+
+# Jangan pernah commit kredensial atau konfigurasi rahasia
+.env
+.env.*
+.clasp.json
+.clasprc.json
+*.pem
+*.key
+credentials*.json
+client_secret*.json
+service-account*.json
+# Ekspor data peserta
+*.csv
+*.xlsx
